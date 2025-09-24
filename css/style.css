@@ -441,3 +441,16 @@ body, body * {
     padding-right: 0;
     border-right: none;
 }
+
+.footer {
+    background-color: #C3DFF0 !important; /* 淡藍底 */
+    color: #000 !important;               /* 黑字 */
+}
+
+.footer a,
+.footer .btn-link,
+.footer .btn-social,
+.footer .btn-link::before,
+.footer .copyright a {
+    color: #000 !important;
+}
