@@ -1,4 +1,9 @@
 /********** Template CSS **********/
+/* ======================= */
+/* 全站黑色文字 */
+body, body * {
+    color: #000 !important;
+}
 :root {
     --primary: #C3DFF0;   /* 主色 淡藍 */
     --secondary: #FADADD; /* 輔助色 淡粉 (新增) */
