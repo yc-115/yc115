@@ -13,13 +13,38 @@
     <link href="css/style.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #C3DFF0;
-            --secondary-color: #FADADD;
+            --primary-color: #C3DFF0; /* 淡藍 */
+            --secondary-color: #FADADD; /* 淡粉 */
         }
+        /* 全域色彩覆蓋 */
         .bg-primary { background-color: var(--primary-color) !important; }
         .text-primary { color: var(--primary-color) !important; }
-        .btn-primary { background-color: var(--primary-color); border-color: var(--primary-color); }
-        .btn-secondary { background-color: var(--secondary-color); border-color: var(--secondary-color); }
+        .bg-secondary { background-color: var(--secondary-color) !important; }
+        .text-secondary { color: var(--secondary-color) !important; }
+
+        .btn-primary { 
+            background-color: var(--primary-color); 
+            border-color: var(--primary-color); 
+            color: #000;
+        }
+        .btn-primary:hover { 
+            background-color: #a5cbe2; 
+            border-color: #a5cbe2;
+        }
+        .btn-secondary { 
+            background-color: var(--secondary-color); 
+            border-color: var(--secondary-color); 
+            color: #000;
+        }
+        .btn-secondary:hover { 
+            background-color: #f7c6cc; 
+            border-color: #f7c6cc;
+        }
+        /* Hero 區塊文字 */
+        .hero-header h1, 
+        .hero-header p {
+            color: #000; /* 藍底黑字比較清楚 */
+        }
     </style>
 </head>
 <body>
@@ -43,25 +68,26 @@
         </nav>
         <!-- Navbar End -->
 
-        <!-- Hero Start -->
-        <div id="home" class="container-xxl bg-primary hero-header">
+        <!-- Home Start -->
+        <div id="home" class="container-xxl bg-primary home-header">
             <div class="container">
-                <div class="row g-5 align-items-center">
-                    <div class="col-lg-6 text-center text-lg-start">
-                        <h1 class="text-white mb-4 animated zoomIn">周怡辰 YI-CHEN, CHOU</h1>
-                        <p class="text-white pb-3 animated zoomIn">per aspera ad astra 🌌 循此苦旅，以達星辰。</p>
-                    </div>
-                    <div class="col-lg-6 text-center text-lg-start">
-                        <!-- 大頭貼或插圖位置 -->
-                        <img class="img-fluid animated zoomIn" src="img/hero.png" alt="Your Photo">
-                    </div>
-                </div>
-            </div>
+               <div class="row g-5 align-items-center">
+                  <div class="col-lg-6 text-center text-lg-start">
+                      <h1 class="text-white mb-4 animated zoomIn">周怡辰 YI-CHEN, CHOU</h1>
+                     <p class="text-white pb-3 animated zoomIn">per aspera ad astra 🌌 循此苦旅，以達星辰。</p>
+                 </div>
+                 <div class="col-lg-6 text-center text-lg-start">
+                     <!-- 大頭貼或插圖位置 -->
+                    <img class="img-fluid animated zoomIn" src="img/hero.png" alt="Your Photo">
+                 </div>
+             </div>
+          </div>
         </div>
-        <!-- Hero End -->
+        <!-- Home End -->
+
 
         <!-- About Start -->
-        <div id="about" class="container-xxl py-6">
+        <div id="about" class="container-xxl py-6 bg-secondary">
             <div class="container">
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-6 wow zoomIn" data-wow-delay="0.1s">
@@ -81,10 +107,10 @@
         <!-- About End -->
 
         <!-- Skills / Portfolio Start -->
-        <div id="portfolio" class="container-xxl py-6 bg-secondary">
+        <div id="portfolio" class="container-xxl py-6">
             <div class="container">
                 <div class="mx-auto text-center" style="max-width: 600px;">
-                    <div class="d-inline-block border rounded-pill text-primary px-4 mb-3">Skills & Interests</div>
+                    <div class="d-inline-block border rounded-pill text-secondary px-4 mb-3">Skills & Interests</div>
                     <h2 class="mb-5">我的技能與興趣</h2>
                 </div>
                 <div class="row g-4 text-center">
@@ -109,21 +135,13 @@
         <!-- Skills / Portfolio End -->
 
         <!-- Features Start -->
-        <div class="container-xxl py-6">
+        <div class="container-xxl py-6 bg-secondary">
             <div class="container">
                 <div class="row g-5 text-center">
-                    <div class="col-md-3">
-                        <h5>🌟 責任感</h5>
-                    </div>
-                    <div class="col-md-3">
-                        <h5>📅 時間管理</h5>
-                    </div>
-                    <div class="col-md-3">
-                        <h5>📖 樂於學習</h5>
-                    </div>
-                    <div class="col-md-3">
-                        <h5>🎨 創意手作</h5>
-                    </div>
+                    <div class="col-md-3"><h5>🌟 責任感</h5></div>
+                    <div class="col-md-3"><h5>📅 時間管理</h5></div>
+                    <div class="col-md-3"><h5>📖 樂於學習</h5></div>
+                    <div class="col-md-3"><h5>🎨 創意手作</h5></div>
                 </div>
             </div>
         </div>
