@@ -1,6 +1,6 @@
 /********** Template CSS **********/
 :root {
-    --primary: #7AB730;
+    --primary: #049ed1; /* 天藍色 */
     --secondary: #FFD33C;
     --light: #F3F3F3;
     --dark: #212121;
@@ -372,7 +372,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(122, 183, 48, .8);
+    background: rgba(4, 158, 209, .8); /* 天藍色透明背景 */
     transition: .5s;
     opacity: 0;
 }
@@ -455,4 +455,30 @@
 
 .blog-item a:hover i::after {
     width: 50px;
+}
+/* 分頁按鈕文字改成天藍色 */
+.nav-pills .nav-link {
+    color: #049ed1;
+}
+
+.nav-pills .nav-link.active {
+    color: #049ed1;
+    background-color: #e0f3fb; /* 可選，讓 active 有背景顏色 */
+}
+/* Back to Top 按鈕改天藍色 */
+.back-to-top {
+    background-color: #049ed1 !important;
+    border-color: #049ed1 !important;
+}
+
+.back-to-top:hover {
+    background-color: #037bb0 !important; /* 可稍微深一點的天藍色做 hover 效果 */
+}
+.form-control:valid {
+    border-color: #ced4da;  /* 原本預設灰色 */
+    box-shadow: none;        /* 去掉綠色陰影 */
+}
+.form-control:invalid {
+    border-color: #dc3545;   /* 紅色 */
+    box-shadow: none;
 }
