@@ -8,4 +8,5 @@
 【個人網站】https://yc-115.github.io/yc115/
 
 作業二
-【REACT】http://localhost:8081/
+【解說影片15分鐘】http://localhost:8081/
+Index.html
