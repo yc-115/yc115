@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skills｜Aster</title>
+<link href="images/favicon-32x32.png" rel="icon" type="image/png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.1/css/all.min.css">
+</head>
+
+<style>
+    /* 讓主內容與頂欄避開固定側欄 */
+#topbar-wrapper,
+#main-wrapper {
+  margin-left: 270px; /* 對齊左側 sidebar */
+  padding: 1rem;
+}
+
+#main-content-wrapper {
+  display: flex;
+  gap: 1rem;          /* 主內容與右側 panel 間距 */
+}
+
+#panel-wrapper {
+  flex-shrink: 0;       /* 不讓 panel 被壓縮 */
+  width: 280px;         /* 固定右側寬度 */
+}
+
+/* 讓頂欄固定在主區域頂端 */
+#topbar-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* 確保在卡片上方 */
+  background: inherit; /* 保持主題顏色一致 */
+  padding: 0.75rem 1rem;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.1);
+}
+
+/* ---------- 亮模式 ---------- */
+body {
+  font-family: 'Lato', sans-serif;
+  background: #f7f7f7; /* 淺灰背景 */
+  color: #4e4e4e;      /* 黑色文字 */
+  transition: background 0.3s, color 0.3s;
+}
+
+/* 側邊欄 */
+#sidebar {
+  display: flex; flex-direction: column; height: 100%;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10; 
+  height: 100%;
+  padding: 1rem;
+  background: #ffffff;  
+  border-right: 3px solid rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  transition: background 0.3s, color 0.3s;
+  color: #4e4e4e; /* 側邊欄文字顏色 */
+}
+
+/* 收起 sidebar 狀態 */
+body.sidebar-collapsed #sidebar {
+  width: 60px; /* 只留漢堡圖示空間 */
+  overflow: hidden;
+  transition: width 0.3s;
+}
+
+/* 調整主內容與 topbar */
+body.sidebar-collapsed #main-wrapper,
+body.sidebar-collapsed #topbar-wrapper {
+  margin-left: 60px; /* 與收縮後 sidebar 對齊 */
+  transition: margin-left 0.3s;
+}
+
+/* 隱藏所有文字、社群圖示、profile */
+body.sidebar-collapsed .profile-wrapper,
+body.sidebar-collapsed .nav-text,
+body.sidebar-collapsed .sidebar-bottom a,
+body.sidebar-collapsed #mode-toggle {
+  display: none;
+}
+
+/* 收合後只顯示漢堡圖示 */
+body.sidebar-collapsed #sidebar-toggle {
+  display: flex;       /* 顯示漢堡圖示 */
+  justify-content: center;
+  align-items: center;
+}
+
+/* 連結 */
+.nav-link {
+  color: #4e4e4e;   /* 亮模式深色字 */
+}
+.nav-link:hover {
+  color: #000;      /* 滑鼠懸停更深 */
+  text-decoration: none;
+}
+
+/* 主區塊 */
+#main-wrapper {
+  margin-left: 270px;
+  padding: 1rem;
+  transition: background 0.3s, color 0.3s;
+  color: #4e4e4e;
+}
+
+/* 卡片 */
+.card-wrapper {
+  margin-bottom: 1.5rem;
+  background: #ffffff;  
+  border: 1px solid #ddd;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+  color: #4e4e4e;
+}
+
+/* 圖片保持原樣 */
+.preview-img img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+/* 標題與副標 */
+.site-title {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #4e4e4e;
+}
+.site-subtitle {
+  font-style: italic;
+  color: #666666;
+}
+
+/* 標籤 */
+.post-tag {
+  margin: 2px;
+  background: #ccc; /* 輕灰底 */
+  color: #4e4e4e;   /* 深色字 */
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+/* 搜尋結果文字 */
+#search {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  background: #f0f0f0;
+  border-radius: 6px;
+}
+
+#search input {
+  border: none;
+  background: transparent;
+  flex-grow: 1;
+  color: inherit;
+  outline: none;
+}
+
+#sidebar a i {
+  font-size: 1.2rem;
+  color: #4e4e4e;   /* 深色圖示 */
+  transition: color 0.3s;
+}
+
+#sidebar a:hover i {
+  color: #000;       /* 滑鼠懸停更深 */
+}
+
+/* 側邊欄連結：一般、懸停、已訪問、焦點 */
+#sidebar .nav-link {
+  justify-content: flex-start; /* 確保靠左 */
+  padding-left: 4rem;       /* 調整左側間距 */
+}
+#sidebar .nav-link:visited,
+#sidebar .nav-link:focus {
+  color: #4e4e4e;   /* 亮模式深色字 */
+  text-decoration: none;
+}
+
+#sidebar .nav-link i {
+  width: 30px;       /* 固定圖標寬度，對齊所有圖標 */
+  text-align: center; 
+  margin-right: 10px; /* 圖標與文字間距 */
+}
+
+#sidebar .nav-link .nav-text {
+  flex-grow: 1;      /* 文字單獨對齊 */
+}
+
+/* 滑鼠懸停 */
+#sidebar .nav-link:hover {
+  color: #000;
+}
+
+.profile-wrapper img {
+  border: 4px solid #4e4e4e; /* 深色邊框 */
+  padding: 2px;               /* 邊框和圖片間距 */
+}
+
+.profile-wrapper {
+  text-align: center ; 
+  margin-bottom: 1rem; /* 底部間距 */
+  margin-top: 3rem;    /* 上方間距 */
+}
+
+#breadcrumb a {
+  color: var(--text-color);   /* 亮模式主文字色 */
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+#breadcrumb span {
+  margin: 0 0.25rem;
+}
+
+/* ---------- 暗模式 ---------- */
+body.dark #topbar-wrapper {
+  border-bottom: 3px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark {
+  background: #1b1b1e; /* 深灰背景 */
+  color: #ddd;          /* 淺灰文字 */
+}
+
+/* 側邊欄 */
+body.dark #sidebar {
+  background: #2b2b2f;
+  color: #ddd;
+  border-right: 3px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 連結 */
+body.dark .nav-link {
+  color: #ddd;
+}
+body.dark .nav-link:hover {
+  color: #fff;
+}
+
+/* 主區塊 */
+body.dark #main-wrapper {
+  background: #1b1b1e;
+  color: #ddd;
+}
+
+/* 卡片 */
+body.dark .card-wrapper {
+  background: #2b2b2f;
+  color: #ddd;
+  border-color: #444;
+}
+
+/* 標題與副標 */
+body.dark .site-title {
+  color: #fff;
+}
+body.dark .site-subtitle {
+  color: #aaa;
+}
+
+/* 標籤 */
+body.dark .post-tag {
+  background: #444; /* 暗灰底 */
+  color: #ddd;      /* 淺色字 */
+}
+
+body.dark #sidebar a i {
+  color: #ddd;       /* 淺色圖示 */
+}
+
+body.dark #sidebar a:hover i {
+  color: #fff;       /* 滑鼠懸停更亮 */
+}
+
+body.dark #sidebar .nav-link,
+body.dark #sidebar .nav-link:visited,
+body.dark #sidebar .nav-link:focus {
+  color: #ddd;
+}
+
+body.dark #sidebar .nav-link:hover {
+  color: #fff;
+}
+
+body.dark .profile-wrapper img {
+  border-color: #ddd; /* 淺色邊框 */
+}
+
+body.dark #search {
+  background: #2b2b2f;
+}
+
+body.dark #search input {
+  color: #ddd;   /* 輸入文字 */
+}
+
+body.dark #search input::placeholder {
+  color: #aaa;   /* placeholder 文字 */
+  opacity: 1;
+}
+
+body.dark #breadcrumb a {
+  color: var(--text-color-dark); /* 暗模式主文字色 */
+}
+
+#breadcrumb a:hover {
+  opacity: 0.8;
+}
+
+body.dark #panel-wrapper {
+  background: #1b1b1e;
+  color: #ddd;
+}
+
+</style>
+</head>
+<body>
+
+<!-- Sidebar --> 
+<aside id="sidebar" class="d-flex flex-column" style="height:100%;">
+  <!-- 上方個人資料 -->
+  <div class="profile-wrapper text-center mb-3">
+    <img src="images/IMG_5363.JPG" width="112" height="112" class="rounded-circle" alt="avatar">
+    <h2 class="site-title mt-2">Aster</h2>
+    <p class="site-subtitle">YiChen Chou</p>
+  </div>
+
+<!-- 導覽，靠上排列 -->
+<nav class="nav flex-column mb-3">
+  <a href="index.html" class="nav-link d-flex align-items-center">
+    <i class="fas fa-home"></i>
+    <span class="nav-text">Home</span>
+  </a>
+  <a href="about.html" class="nav-link d-flex align-items-center">
+    <i class="fas fa-user"></i>
+    <span class="nav-text">About</span>
+  </a>
+  <a href="skills.html" class="nav-link d-flex align-items-center">
+    <i class="fas fa-lightbulb"></i>
+    <span class="nav-text">Skills</span>
+  </a>
+  <a href="portfolios.html" class="nav-link d-flex align-items-center">
+    <i class="fas fa-folder-open"></i>
+    <span class="nav-text">Portfolios</span>
+  </a>
+  <a href="hobbies.html" class="nav-link d-flex align-items-center">
+    <i class="fas fa-heart"></i>
+    <span class="nav-text">Hobbies</span>
+  </a>
+</nav>
+
+
+  <!-- 底部社群 + 暗模式切換 -->
+  <div class="mt-auto w-100">
+    <div class="sidebar-bottom d-flex flex-wrap align-items-center justify-content-center gap-2 mb-3">
+      <button type="button" class="btn btn-link nav-link p-1" aria-label="Switch Mode" id="mode-toggle">
+        <i class="fas fa-adjust"></i>
+      </button>
+      <a href="https://www.linkedin.com/in/asterchou/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/yc-115" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+      <a href="https://www.instagram.com/yc.115/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.facebook.com/zhou.yi.chen.740131" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+      <!-- 新增 Sidebar 收合按鈕 -->
+      <button id="sidebar-toggle" class="btn btn-link nav-link p-1" aria-label="Toggle Sidebar">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+</aside>
+
+<!-- Header 固定在主區域頂端 -->
+<header id="topbar-wrapper" aria-label="Top Bar">
+  <div id="topbar" class="d-flex align-items-center justify-content-between px-3 h-100">
+    <!-- 麵包屑或左側文字 -->
+    <nav id="breadcrumb" aria-label="Breadcrumb"> 
+        <span> <a href="index.html">Home</a> </span> > <span>Skills</span>
+    </nav>
+    <!-- 右側搜尋欄 -->
+    <div id="search" class="d-flex align-items-center" style="max-width: 250px;">
+      <i class="fas fa-search fa-fw me-2"></i>
+      <input class="form-control" id="search-input" type="search" placeholder="Search...">
+    </div>
+  </div>
+</header>
+
+<main id="main-wrapper">
+  <div class="d-flex gap-4 mt-4 align-items:flex-start">
+
+    <!-- 左側技能區 -->
+    <div style="flex: 1 1 500px;">
+      <h1 class="about-title mb-3">My Skills</h1>
+
+      <!-- 前端技能 -->
+      <h2 class="about-section-title mt-4">Front-End</h2>
+      <div class="row g-4">
+        <div class="col-sm-6 col-md-4">
+          <div class="skill-card text-center front-end">
+            <i class="fab fa-html5 skill-icon mb-2"></i>
+            <h5>HTML</h5>
+            <div class="progress mt-2">
+              <div class="progress-bar" style="width:95%;">95%</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+          <div class="skill-card text-center front-end">
+            <i class="fab fa-css3-alt skill-icon mb-2"></i>
+            <h5>CSS</h5>
+            <div class="progress mt-2">
+              <div class="progress-bar" style="width:90%;">90%</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+          <div class="skill-card text-center front-end">
+            <i class="fab fa-js skill-icon mb-2"></i>
+            <h5>JavaScript</h5>
+            <div class="progress mt-2">
+              <div class="progress-bar" style="width:85%;">85%</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+          <div class="skill-card text-center front-end">
+            <i class="fab fa-react skill-icon mb-2"></i>
+            <h5>React</h5>
+            <div class="progress mt-2">
+              <div class="progress-bar" style="width:80%;">80%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 設計技能 -->
+      <h2 class="about-section-title mt-4">Design & UX</h2>
+      <div class="row g-4">
+        <div class="col-sm-6 col-md-4">
+          <div class="skill-card text-center design">
+            <i class="fas fa-pencil-ruler skill-icon mb-2"></i>
+            <h5>UI/UX Design</h5>
+            <div class="progress mt-2">
+              <div class="progress-bar" style="width:85%;">85%</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+          <div class="skill-card text-center design">
+            <i class="fab fa-figma skill-icon mb-2"></i>
+            <h5>Figma</h5>
+            <div class="progress mt-2">
+              <div class="progress-bar" style="width:80%;">80%</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+          <div class="skill-card text-center design">
+            <i class="fas fa-layer-group skill-icon mb-2"></i>
+            <h5>Wireframing</h5>
+            <div class="progress mt-2">
+              <div class="progress-bar" style="width:75%;">75%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 工具技能 -->
+      <h2 class="about-section-title mt-4">Tools & Workflow</h2>
+      <div class="row g-4">
+        <div class="col-sm-6 col-md-4">
+          <div class="skill-card text-center tools">
+            <i class="fab fa-git-alt skill-icon mb-2"></i>
+            <h5>Git / GitHub</h5>
+            <div class="progress mt-2">
+              <div class="progress-bar" style="width:90%;">90%</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+          <div class="skill-card text-center tools">
+            <i class="fas fa-code skill-icon mb-2"></i>
+            <h5>VS Code / IDEs</h5>
+            <div class="progress mt-2">
+              <div class="progress-bar" style="width:85%;">85%</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+          <div class="skill-card text-center tools">
+            <i class="fas fa-project-diagram skill-icon mb-2"></i>
+            <h5>Agile / Scrum</h5>
+            <div class="progress mt-2">
+              <div class="progress-bar" style="width:75%;">75%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 右側 Panel -->
+    <aside style="flex: 0 0 280px;">
+      <div class="access">
+        <section id="panel-contact" class="mt-4 position-sticky" style="top: 100px;">
+          <h2 class="panel-heading">Contact Me</h2>
+          <p style="margin-bottom:0.25rem;"><i class="fas fa-map me-2"></i>Taipei, Taiwan</p>
+          <p style="margin-bottom:0.25rem;"><i class="fas fa-envelope me-2"></i>41371211h@gapps.ntnu.edu.tw</p>
+          <p style="margin-bottom:0.25rem;"><i class="fas fa-phone me-2"></i>+886 901 279 101</p>
+        </section>
+      </div>
+    </aside>
+
+  </div>
+</main>
+
+
+<style>
+/* 中間文字內容 */
+.about-title {
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.about-intro {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+/* 技能卡片 Grid + hover */
+.skill-card {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.skill-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+}
+
+/* skill icon */
+.skill-icon {
+  font-size: 2rem;
+  transition: transform 0.3s, color 0.3s;
+}
+.skill-card:hover .skill-icon {
+  transform: scale(1.2);
+}
+
+/* progress bar */
+.progress {
+  height: 18px;
+  background: #eee;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 18px;
+  background: #4e73df;
+  text-align: right;
+  padding-right: 0.3rem;
+  color: #fff;
+  font-size: 0.85rem;
+  line-height: 18px;
+}
+
+/* 類型顏色區分 */
+.skill-card.front-end .skill-icon { color: #f06529; } /* HTML橘色系 */
+.skill-card.design .skill-icon { color: #a259ff; }     /* Figma紫色系 */
+.skill-card.tools .skill-icon { color: #28a745; }      /* Git綠色系 */
+
+/* 暗模式 */
+body.dark .skill-card {
+  background: #2b2b2f;
+  border-color: #444;
+  color: #ddd;
+}
+body.dark .progress {
+  background: #444;
+}
+body.dark .progress-bar {
+  background: #6c9cff;
+}
+body.dark .skill-icon {
+  filter: brightness(1.2);
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const breadcrumb = document.querySelector("#breadcrumb span:last-child");
+  const page = location.pathname.split("/").pop().split(".")[0];
+  if (page && page !== "index") {
+    breadcrumb.textContent = page.charAt(0).toUpperCase() + page.slice(1);
+  }
+});
+</script>
+
+<script>
+  // 讀取 localStorage
+  const savedMode = localStorage.getItem('theme');
+  if (savedMode === 'dark') {
+    document.body.classList.add('dark');
+  }
+
+  // 切換暗模式按鈕
+  const toggleBtn = document.getElementById('mode-toggle');
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+
+    // 儲存使用者設定
+    if (document.body.classList.contains('dark')) {
+      localStorage.setItem('theme', 'dark');
+    } else {
+      localStorage.setItem('theme', 'light');
+    }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const input = document.getElementById('search-input');
+
+  input.addEventListener('input', () => {
+    const query = input.value.toLowerCase();
+    resultContainer.innerHTML = '';
+    if(query === '') return;
+    const results = posts.filter(p => p.title.toLowerCase().includes(query) || p.content.toLowerCase().includes(query));
+    if(results.length === 0) {
+      resultContainer.innerHTML = '<p>No results found</p>';
+    } else {
+      results.forEach(p => {
+        const div = document.createElement('div');
+        div.innerHTML = `<a href="#" class="d-block mb-1">${p.title}</a>`;
+        resultContainer.appendChild(div);
+      });
+    }
+  });
+</script>
+
+<script>
+const sidebarToggle = document.getElementById('sidebar-toggle');
+
+sidebarToggle.addEventListener('click', () => {
+  document.body.classList.toggle('sidebar-collapsed');
+});
+</script>
+</body>
+</html>
