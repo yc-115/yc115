@@ -35,8 +35,8 @@ hobbies.html [新增hobbies介面](https://github.com/yc-115/yc115/blob/9f595e9e
 🛠️ 安裝與執行方式
 
 下載專案
-<pre> ```git clone https://github.com/yc-115/yc115-2
-cd yc115-2 ``` </pre>
+<pre> git clone https://github.com/yc-115/yc115-2
+cd yc115-2  </pre>
 
 安裝相依套件
 
