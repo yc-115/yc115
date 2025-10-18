@@ -26,6 +26,8 @@ hobbies.html [新增hobbies介面](https://github.com/yc-115/yc115/blob/9f595e9e
 
 ## 作業三【專案簡介】
 
+[new repo](https://github.com/yc-115/yc115-2)
+
 🎬 Demo 影片
 
 請參考以下影片，了解專案的功能與操作：
