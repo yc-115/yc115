@@ -1,12 +1,12 @@
 # Web-Introduction-to-the-Internet
 
-## 作業一【個人網站】
+## HW1【個人網站】
 
 https://yc-115.github.io/yc115/
 
 ---
 
-## 作業二【解說影片15分鐘】
+## HW2【解說影片15分鐘】
 
 [YouTube](https://youtu.be/TclBcOZJL8M)
 
@@ -24,19 +24,8 @@ https://yc-115.github.io/yc115/
 
 ---
 
-## 作業三【專案簡介】
+## HW3【專案簡介】
 
-[new repo](https://github.com/yc-115/yc115-2)
+New Repo [GitHub](https://github.com/yc-115/yc115-2)
 
 🎬 Demo 影片
-
-請參考以下影片，了解專案的功能與操作：
-
-👉 專案說明影片
-
-📸 範例截圖
-
-首頁介面
-
-AI 聊天區
-
