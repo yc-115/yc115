@@ -28,4 +28,4 @@ https://yc-115.github.io/yc115/
 
 New Repo [GitHub](https://github.com/yc-115/yc115-2)
 
-🎬 Demo 影片
+Demo 影片 [YouTube](https://youtu.be/GM5SEvzZ9Xk)
