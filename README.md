@@ -1,10 +1,10 @@
 # Web-Introduction-to-the-Internet
 
-##作業一【個人網站】
+## 作業一【個人網站】
 
 https://yc-115.github.io/yc115/
 
-##作業二【解說影片15分鐘】
+## 作業二【解說影片15分鐘】
 
 [YouTube](https://youtu.be/TclBcOZJL8M)
 
@@ -20,7 +20,7 @@ portfolio.html [新增portfolio介面](https://github.com/yc-115/yc115/blob/9f59
 
 hobbies.html [新增hobbies介面](https://github.com/yc-115/yc115/blob/9f595e9e8147936c1b2c56efdf16f38b65e76aa9/hobbies.html)
 
-##作業三【專案簡介】
+## 作業三【專案簡介】
 
 這是一個整合 React、Gemini API 以及個人靜態網站的專案，旨在提供個性化的 AI 助手體驗。使用者可以選擇不同的情境（如心理輔助、興趣探索、程式開發）與 AI 助手互動，獲得建議、鼓勵或技術支援。
 
